@@ -1,0 +1,59 @@
+C51 COMPILER V9.60.0.0   DELAY                                                             07/19/2021 23:31:05 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN .\Objects\delay.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Src\delay.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Inc) DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\delay.lst) OBJECT(.\Objects\delay.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2           * 外部中断按键程序例子                                                                                                                  *
+   3           *******************************************************************************
+   4           * 作者：            信念D力量                                                                                                      *
+   5           * 网站：            https://zsf90.github.io                                                                            *
+   6           * Git:                 https://www.github.com/zsf90                                                               *
+   7           * 哔哩哔哩:        https://space.bilibili.com/334715750                                               *
+   8           * 创建日期：      2021-7-13                                                                                                          *
+   9           * 更新日期：      2021-7-13                                                                                                          *
+  10           *******************************************************************************
+  11           * INT0 -> P3.2                                                                                                                            *
+  12           * INT1 -> P3.3                                                                                                                            *
+  13           * INT2 -> P3.6                                                                                                                            *
+  14           *******************************************************************************
+  15          */
+  16          #include "public.h"
+  17          #include "delay.h"
+  18          #include <intrins.h>
+  19          
+  20          
+  21          // 毫秒延时函数
+  22          void DelayMs(uint32_t ms)               //@24MHz
+  23          {
+  24   1              uint8_t i, j;
+  25   1              for(ms; ms >0; ms--)
+  26   1              {
+  27   2                              _nop_();
+  28   2                      i = 32;
+  29   2                      j = 40;
+  30   2                      do
+  31   2                      {
+  32   3                              while (--j);
+  33   3                      } while (--i);
+  34   2              }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     63    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

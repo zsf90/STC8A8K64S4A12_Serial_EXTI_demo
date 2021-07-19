@@ -1,0 +1,89 @@
+C51 COMPILER V9.60.0.0   KEY                                                               07/19/2021 23:31:05 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEY
+OBJECT MODULE PLACED IN .\Objects\key.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Src\key.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Inc) DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\key.lst) OBJECT(.\Objects\key.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2           * 外部中断按键程序例子                                                                                                                  *
+   3           *******************************************************************************
+   4           * 作者：            信念D力量                                                                                                      *
+   5           * 网站：            https://zsf90.github.io                                                                            *
+   6           * Git:                 https://www.github.com/zsf90                                                               *
+   7           * 哔哩哔哩:        https://space.bilibili.com/334715750                                               *
+   8           * 创建日期：      2021-7-13                                                                                                          *
+   9           * 更新日期：      2021-7-13                                                                                                          *
+  10           *******************************************************************************
+  11           * INT0 -> P3.2                                                                                                                            *
+  12           * INT1 -> P3.3                                                                                                                            *
+  13           * INT2 -> P3.6                                                                                                                            *
+  14           *******************************************************************************
+  15          */
+  16          #include "public.h"
+  17          #include "key.h"
+  18          #include "delay.h"
+  19          #include "uart.h"
+  20          #include <stdio.h>
+  21          
+  22          extern uint32_t num;
+  23          
+  24          
+  25          bit key_up_over = 0;   /* 按钮下降沿触发标志位 */
+  26          bit key_down_over = 0;   /* 按钮下降沿触发标志位 */
+  27          
+  28          void key_init()
+  29          {
+  30   1              EA = 1;         // 总中断使能
+  31   1              EX0 = 1;        // 外部中断0使能
+  32   1              IT0 = 1;        // 外部中断0下降沿触发
+  33   1          EX1 = 1;
+  34   1          IT1 = 1;
+  35   1      }
+  36          
+  37          /*
+  38          外部中断服务程序
+  39          ******************
+  40          interrupt 0     外部中断0
+  41          interrupt 1 定时器中断0
+  42          interrupt 2 外部中断1
+  43          interrupt 3 定时器中断1
+  44          interrupt 4 串口中断
+  45          */
+  46          void isr_key_up(void) interrupt 0
+  47          {
+  48   1          key_up_over = 1;
+  49   1      }
+  50          
+  51          /*
+  52          外部中断服务程序
+  53          ******************
+  54          interrupt 0     外部中断0
+C51 COMPILER V9.60.0.0   KEY                                                               07/19/2021 23:31:05 PAGE 2   
+
+  55          interrupt 1 定时器中断0
+  56          interrupt 2 外部中断1
+  57          interrupt 3 定时器中断1
+  58          interrupt 4 串口中断
+  59          */
+  60          void isr_key_down(void) interrupt 2
+  61          {
+  62   1          key_down_over = 1;
+  63   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     17    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

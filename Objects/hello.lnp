@@ -1,0 +1,8 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\delay.obj",
+".\Objects\led.obj",
+".\Objects\key.obj",
+".\Objects\uart.obj" 
+TO ".\Objects\hello" 
+PRINT(".\Listings\hello.m51") RAMSIZE(256) 
